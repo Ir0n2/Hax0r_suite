@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <script>
+        // Function to get user's location
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        // Callback for successful location retrieval
+        function showPosition(position) {
+            document.getElementById("longitude").value = position.coords.longitude;
+            document.getElementById("latitude").value = position.coords.latitude;
+            document.getElementById("loginForm").submit(); // Submit form once coordinates are set
+        }
+
+        // Callback for location retrieval error
+        function showError(error) {
+            alert("Unable to retrieve location. Please allow location access and try again.");
+        }
+
+        // Prevent form submission until location is set
+        window.onload = function () {
+            document.getElementById("loginForm").addEventListener("submit", function(event) {
+                event.preventDefault(); // Stop form from submitting
+                getLocation(); // Attempt to get location
+            });
+        };
+    </script>
+</head>
+<body>
+    <h2>Login</h2>
+    <form id="loginForm" method="POST">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" required><br><br>
+        
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+        
+        <!-- Hidden fields to store latitude and longitude -->
+        <input type="hidden" id="longitude" name="longitude">
+        <input type="hidden" id="latitude" name="latitude">
+        
+        <button type="submit">Log In</button>
+    </form>
+</body>
+</html>
+

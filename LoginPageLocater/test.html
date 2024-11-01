@@ -1,0 +1,43 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPosition(position) {
+            // Set the longitude and latitude into hidden form fields
+            document.getElementById("longitude").value = position.coords.longitude;
+            document.getElementById("latitude").value = position.coords.latitude;
+        }
+        
+        // Run getLocation() when the page loads
+        window.onload = getLocation;
+    </script>
+</head>
+<body>
+    <h2>Login</h2>
+    <form method="POST">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" required><br><br>
+        
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+        
+        <!-- Hidden fields to store latitude and longitude -->
+        <input type="hidden" id="longitude" name="longitude">
+        <input type="hidden" id="latitude" name="latitude">
+        
+        <button type="submit">Log In</button>
+    </form>
+</body>
+</html>
+
